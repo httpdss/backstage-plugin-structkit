@@ -1,10 +1,13 @@
-# @httpdss/plugin-scaffolder-backend-module-structkit
+# backstage-plugin-structkit
 
-A complete [Backstage](https://backstage.io) scaffolder integration for [StructKit](https://structkit.dev), providing backend actions and a custom field extension.
+A complete [Backstage](https://backstage.io) integration for [StructKit](https://structkit.dev), providing scaffolder actions, catalog integration, and UI extensions.
 
-## What This Provides
+## Packages
 
-This plugin adds multiple StructKit actions to Backstage software templates:
+This repository contains three packages:
+
+### [@httpdss/plugin-scaffolder-backend-module-structkit](./README.md#backend-actions)
+Scaffolder backend module with StructKit actions for software templates.
 
 **Backend Actions:**
 - `structkit:generate` - Generate code from structures
@@ -13,15 +16,42 @@ This plugin adds multiple StructKit actions to Backstage software templates:
 - `structkit:vars` - Get required template variables
 - `structkit:validate` - Validate structure files
 
+### [@httpdss/plugin-scaffolder-field-structkit](./field/README.md)
+Custom field extension for the scaffolder UI.
+
 **Frontend Field Extension:**
 - `StructKitPicker` - Custom field for selecting structures in template forms
 
-Template authors can now:
+### [@httpdss/plugin-structkit](./plugin-structkit/README.md)
+Catalog plugin that displays StructKit entity cards.
+
+**Catalog Integration:**
+- Entity card showing structure information
+- Validation and drift detection
+- Documentation links
+- EntitySwitch support with `isStructkitAvailable`
+
+### [@httpdss/plugin-structkit-backend](./plugin-structkit-backend/README.md)
+Backend plugin providing validation API for the catalog plugin.
+
+**Backend API:**
+- `/api/structkit/validate` endpoint
+- CLI integration for validation
+
+## What You Can Do
+
+Template authors can:
 - Pick structures from a dropdown
 - Discover available structures dynamically
 - Query required variables before generation
 - Validate structures before use
 - Generate files into the workspace
+
+Entity owners can:
+- See which StructKit structure generated their component
+- Access documentation links
+- Validate structures against their definitions
+- Detect drift from original structure
 
 ## Prerequisites
 

@@ -1,3 +1,12 @@
-name: ${{ values.name }}
-description: ${{ values.description }}
-owner: ${{ values.owner }}
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.name }}
+  description: ${{ values.description }}
+  annotations:
+    structkit.io/structure: ${{ values.structureName }}
+    structkit.io/source: Generated from StructKit template
+spec:
+  type: service
+  lifecycle: experimental
+  owner: ${{ values.owner }}
