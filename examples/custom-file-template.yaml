@@ -1,0 +1,63 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: structkit-custom-file
+  title: StructKit Custom Structure File Example
+  description: Example using a custom StructKit structure file instead of a named structure
+spec:
+  owner: platform-team
+  type: service
+
+  parameters:
+    - title: Project Information
+      required:
+        - name
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Name of the project
+
+    - title: Repository Location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+
+  steps:
+    - id: fetch-structure
+      name: Fetch Structure File
+      action: fetch:plain
+      input:
+        url: ./structure-files/custom-structure.yaml
+        targetPath: ./temp
+
+    - id: structkit-generate
+      name: Generate with StructKit
+      action: structkit:generate
+      input:
+        structFile: ./temp/custom-structure.yaml
+        outputPath: .
+        vars:
+          project_name: ${{ parameters.name }}
+        noHooks: true
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        allowedHosts:
+          - github.com
+        description: Generated with StructKit custom structure
+        repoUrl: ${{ parameters.repoUrl }}
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}

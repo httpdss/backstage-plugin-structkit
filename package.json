@@ -1,0 +1,48 @@
+{
+  "name": "@httpdss/plugin-scaffolder-backend-module-structkit",
+  "version": "0.1.0",
+  "description": "Backstage scaffolder backend module for StructKit - generate code from YAML structure files",
+  "main": "dist/index.cjs.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "backstage": {
+    "role": "backend-plugin-module",
+    "pluginId": "scaffolder",
+    "pluginPackage": "@backstage/plugin-scaffolder-backend"
+  },
+  "scripts": {
+    "build": "backstage-cli package build",
+    "lint": "backstage-cli package lint",
+    "test": "backstage-cli package test",
+    "clean": "backstage-cli package clean",
+    "prepack": "backstage-cli package prepack",
+    "postpack": "backstage-cli package postpack"
+  },
+  "dependencies": {
+    "@backstage/backend-plugin-api": "^1.0.0",
+    "@backstage/plugin-scaffolder-node": "^0.4.0",
+    "@backstage/types": "^1.1.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@backstage/cli": "^0.27.0",
+    "@types/node": "^18.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/httpdss/backstage-plugin-structkit"
+  },
+  "keywords": [
+    "backstage",
+    "scaffolder",
+    "structkit",
+    "template",
+    "code-generation"
+  ]
+}
