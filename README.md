@@ -1,6 +1,6 @@
-# @httpdss/plugin-scaffolder-backend-module-structkit
+# Backstage plugin for StructKit
 
-A complete [Backstage](https://backstage.io) scaffolder integration for [StructKit](https://structkit.dev), providing backend actions and a custom field extension.
+Companion to [StructKit](https://github.com/httpdss/structkit). Scaffolder actions so a platform team generates repos from YAML. Star the [core repo](https://github.com/httpdss/structkit). Docs: https://structkit.app
 
 ## What This Provides
 
@@ -394,6 +394,6 @@ Contributions welcome! Please open an issue or PR on GitHub.
 
 ## Links
 
-- [StructKit Documentation](https://structkit.dev)
+- [StructKit Documentation](https://structkit.app)
 - [Backstage Software Templates](https://backstage.io/docs/features/software-templates/)
 - [Writing Custom Actions](https://backstage.io/docs/features/software-templates/writing-custom-actions/)
