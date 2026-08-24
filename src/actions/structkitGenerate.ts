@@ -2,6 +2,7 @@ import { createTemplateAction } from '@backstage/plugin-scaffolder-node';
 import { resolveSafeChildPath } from '@backstage/backend-plugin-api';
 import { spawn } from 'child_process';
 import { z } from 'zod';
+import { Config } from '@backstage/config';
 
 /**
  * Creates a StructKit generate action.
@@ -12,7 +13,9 @@ import { z } from 'zod';
  *
  * @public
  */
-export function createStructKitGenerateAction() {
+export function createStructKitGenerateAction(options?: { config?: Config }) {
+  const structkitBinary =
+    options?.config?.getOptionalString('structkit.binaryPath') ?? 'structkit';
   return createTemplateAction({
     id: 'structkit:generate',
     description:
@@ -136,12 +139,12 @@ export function createStructKitGenerateAction() {
         args.push(...extraArgs);
       }
 
-      ctx.logger.info(`Executing: structkit ${args.join(' ')}`);
+      ctx.logger.info(`Executing: ${structkitBinary} ${args.join(' ')}`);
 
       let stdout = '';
 
       await new Promise<void>((resolve, reject) => {
-        const child = spawn('structkit', args, {
+        const child = spawn(structkitBinary, args, {
           cwd: ctx.workspacePath,
           env: process.env,
           stdio: ['ignore', 'pipe', 'pipe'],
@@ -164,7 +167,7 @@ export function createStructKitGenerateAction() {
         child.on('error', (error: Error) => {
           reject(
             new Error(
-              `Failed to execute structkit CLI: ${error.message}. ` +
+              `Failed to execute ${structkitBinary} CLI: ${error.message}. ` +
                 'Ensure that structkit is installed and available on the PATH of the Backstage backend host.',
             ),
           );
@@ -177,7 +180,7 @@ export function createStructKitGenerateAction() {
           } else {
             reject(
               new Error(
-                `structkit CLI exited with code ${code}\n` +
+                `${structkitBinary} CLI exited with code ${code}\n` +
                   `stdout: ${stdout}\n` +
                   `stderr: ${stderr}`,
               ),

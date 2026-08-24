@@ -1,6 +1,6 @@
 # Examples
 
-This directory contains example Backstage software templates demonstrating the `structkit:generate` action.
+This directory contains example Backstage software templates demonstrating StructKit scaffolder actions and the custom field extension.
 
 ## Templates
 
@@ -22,6 +22,18 @@ An example showing how to use a custom StructKit structure file instead of a nam
 3. Publishes to GitHub
 
 **Usage**: This demonstrates the `structFile` parameter. Create your own structure files and reference them in templates.
+
+### `dynamic-template.yaml` (NEW)
+
+A comprehensive example showcasing all StructKit actions and the custom field extension:
+1. Lists available structures dynamically with `structkit:list`
+2. Uses the `StructKitPicker` custom field for structure selection
+3. Validates the selected structure with `structkit:validate`
+4. Queries required variables with `structkit:vars`
+5. Generates the project with `structkit:generate`
+6. Publishes to GitHub and registers in catalog
+
+**Usage**: This is the recommended starting point for new templates. It demonstrates the complete StructKit integration including the frontend picker field.
 
 ## Testing Templates Locally
 

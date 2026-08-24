@@ -1,7 +1,7 @@
 {
-  "name": "@httpdss/plugin-scaffolder-backend-module-structkit",
+  "name": "@httpdss/plugin-scaffolder-field-structkit",
   "version": "0.1.0",
-  "description": "Backstage scaffolder backend module for StructKit - generate code from YAML structure files",
+  "description": "Backstage scaffolder custom field for StructKit structure picker",
   "main": "dist/index.cjs.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
@@ -9,9 +9,8 @@
     "access": "public"
   },
   "backstage": {
-    "role": "backend-plugin-module",
-    "pluginId": "scaffolder",
-    "pluginPackage": "@backstage/plugin-scaffolder-backend"
+    "role": "frontend-plugin",
+    "pluginId": "scaffolder-field-structkit"
   },
   "scripts": {
     "build": "backstage-cli package build",
@@ -22,28 +21,34 @@
     "postpack": "backstage-cli package postpack"
   },
   "dependencies": {
-    "@backstage/backend-plugin-api": "^1.0.0",
-    "@backstage/config": "^1.2.0",
-    "@backstage/plugin-scaffolder-node": "^0.4.0",
-    "@backstage/types": "^1.1.1",
-    "zod": "^3.22.4"
+    "@backstage/core-components": "^0.14.0",
+    "@backstage/core-plugin-api": "^1.9.0",
+    "@backstage/plugin-scaffolder-react": "^1.8.0",
+    "@rjsf/core": "^5.13.0",
+    "@rjsf/utils": "^5.13.0",
+    "react": "^18.2.0",
+    "react-use": "^17.4.0"
   },
   "devDependencies": {
     "@backstage/cli": "^0.27.0",
-    "@types/node": "^18.0.0"
+    "@types/react": "^18.2.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
   },
   "files": [
     "dist"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/httpdss/backstage-plugin-structkit"
+    "url": "https://github.com/httpdss/backstage-plugin-structkit",
+    "directory": "field"
   },
   "keywords": [
     "backstage",
     "scaffolder",
     "structkit",
-    "template",
-    "code-generation"
+    "field-extension",
+    "custom-field"
   ]
 }
