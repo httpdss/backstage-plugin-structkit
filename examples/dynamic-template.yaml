@@ -1,0 +1,122 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: structkit-dynamic-template
+  title: StructKit Dynamic Template
+  description: Create a project with dynamic StructKit structure selection
+  tags:
+    - structkit
+    - dynamic
+    - recommended
+spec:
+  owner: platform-team
+  type: service
+
+  parameters:
+    - title: Project Information
+      required:
+        - name
+        - owner
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Unique name of the component
+          ui:autofocus: true
+          ui:options:
+            rows: 5
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the component
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: Group
+
+    - title: Choose StructKit Structure
+      properties:
+        structure:
+          title: Structure
+          type: string
+          description: Select a StructKit structure to generate
+          ui:field: StructKitPicker
+          ui:options:
+            structures: ${{ steps.list.output.structures }}
+
+    - title: Repository Configuration
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+
+  steps:
+    - id: list
+      name: List Available Structures
+      action: structkit:list
+
+    - id: validate
+      name: Validate Selected Structure
+      action: structkit:validate
+      input:
+        structure: ${{ parameters.structure }}
+
+    - id: vars
+      name: Get Structure Variables
+      action: structkit:vars
+      input:
+        structure: ${{ parameters.structure }}
+
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: ${{ parameters.name }}
+          owner: ${{ parameters.owner }}
+
+    - id: generate
+      name: Generate Structure
+      action: structkit:generate
+      input:
+        structure: ${{ parameters.structure }}
+        outputPath: .
+        vars:
+          project_name: ${{ parameters.name }}
+          owner: ${{ parameters.owner }}
+        noHooks: true
+
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: This is ${{ parameters.name }}
+        repoUrl: ${{ parameters.repoUrl }}
+
+    - id: register
+      name: Register Component
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
+    text:
+      - title: Structure Variables
+        content: |
+          The following variables were detected:
+          ${{ steps.vars.output.vars | dump }}
