@@ -1,6 +1,6 @@
-# backstage-plugin-structkit
+# Backstage plugin for StructKit
 
-A complete [Backstage](https://backstage.io) integration for [StructKit](https://structkit.dev), providing scaffolder actions, catalog integration, and UI extensions.
+Companion to [StructKit](https://github.com/httpdss/structkit). Scaffolder actions so a platform team generates repos from YAML, plus catalog integration to show structure info on entity pages. Star the [core repo](https://github.com/httpdss/structkit). Docs: https://structkit.app
 
 ## Packages
 
@@ -424,6 +424,6 @@ Contributions welcome! Please open an issue or PR on GitHub.
 
 ## Links
 
-- [StructKit Documentation](https://structkit.dev)
+- [StructKit Documentation](https://structkit.app)
 - [Backstage Software Templates](https://backstage.io/docs/features/software-templates/)
 - [Writing Custom Actions](https://backstage.io/docs/features/software-templates/writing-custom-actions/)
