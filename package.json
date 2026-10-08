@@ -4,7 +4,7 @@
   "description": "Backstage scaffolder backend module for StructKit - generate code from YAML structure files",
   "main": "dist/index.cjs.js",
   "types": "dist/index.d.ts",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "publishConfig": {
     "access": "public"
   },
